@@ -1,28 +1,58 @@
-import { useTheme } from "next-themes"
-import { Toaster as Sonner } from "sonner"
+// Simple toast implementation
+let toastContainer = null;
 
-const Toaster = ({
-  ...props
-}) => {
-  const { theme = "system" } = useTheme()
+const createToastContainer = () => {
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    `;
+    document.body.appendChild(toastContainer);
+  }
+  return toastContainer;
+};
 
-  return (
-    <Sonner
-      theme={theme}
-      className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-        },
-      }}
-      {...props} />
-  );
-}
+const showToast = (message, type = 'info') => {
+  const container = createToastContainer();
+  const toast = document.createElement('div');
+  
+  const colors = {
+    success: 'bg-green-500',
+    error: 'bg-red-500',
+    info: 'bg-blue-500'
+  };
+  
+  toast.className = `${colors[type] || colors.info} text-white px-4 py-2 rounded shadow-lg transform translate-x-full transition-transform duration-300`;
+  toast.textContent = message;
+  
+  container.appendChild(toast);
+  
+  // Animate in
+  setTimeout(() => {
+    toast.style.transform = 'translateX(0)';
+  }, 10);
+  
+  // Remove after 3 seconds
+  setTimeout(() => {
+    toast.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      if (container.contains(toast)) {
+        container.removeChild(toast);
+      }
+    }, 300);
+  }, 3000);
+};
 
-export { Toaster }
+export const toast = {
+  success: (message) => showToast(message, 'success'),
+  error: (message) => showToast(message, 'error'),
+  info: (message) => showToast(message, 'info')
+};
+
+export const Toaster = () => null; // No component needed
