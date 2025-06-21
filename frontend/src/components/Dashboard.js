@@ -19,7 +19,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { dashboardAPI } from '../utils/api';
-import { toast } from 'sonner';
+import { toast } from '../components/ui/sonner';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
