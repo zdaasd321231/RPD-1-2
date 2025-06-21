@@ -23,7 +23,7 @@ import {
   Activity
 } from 'lucide-react';
 import { mockLogs } from '../utils/mockData';
-import { toast } from 'sonner';
+import { toast } from '../components/ui/sonner';
 
 const LogsViewer = () => {
   const [logs, setLogs] = useState(mockLogs);
