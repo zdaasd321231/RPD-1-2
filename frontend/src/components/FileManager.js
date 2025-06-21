@@ -23,7 +23,7 @@ import {
   Folder
 } from 'lucide-react';
 import { mockFileSystem } from '../utils/mockData';
-import { toast } from 'sonner';
+import { toast } from '../components/ui/sonner';
 
 const FileManager = () => {
   const [currentPath, setCurrentPath] = useState(mockFileSystem.currentPath);
