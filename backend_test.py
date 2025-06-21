@@ -148,8 +148,36 @@ class RDPStealthAPITester:
         return self.run_test(
             "Get Logs",
             "GET",
-            "logs",
+            "logs/",
             200
+        )
+        
+    def test_log_levels(self):
+        """Test getting log levels"""
+        return self.run_test(
+            "Get Log Levels",
+            "GET",
+            "logs/levels",
+            200
+        )
+        
+    def test_log_sources(self):
+        """Test getting log sources"""
+        return self.run_test(
+            "Get Log Sources",
+            "GET",
+            "logs/sources",
+            200
+        )
+        
+    def test_log_statistics(self):
+        """Test getting log statistics"""
+        return self.run_test(
+            "Get Log Statistics",
+            "GET",
+            "logs/statistics",
+            200,
+            params={"days": 7}
         )
 
     def test_settings(self):
@@ -157,7 +185,52 @@ class RDPStealthAPITester:
         return self.run_test(
             "Get Settings",
             "GET",
-            "settings",
+            "settings/",
+            200
+        )
+        
+    def test_security_settings(self):
+        """Test getting security settings"""
+        return self.run_test(
+            "Get Security Settings",
+            "GET",
+            "settings/security",
+            200
+        )
+        
+    def test_rdp_settings(self):
+        """Test getting RDP settings"""
+        return self.run_test(
+            "Get RDP Settings",
+            "GET",
+            "settings/rdp",
+            200
+        )
+        
+    def test_file_settings(self):
+        """Test getting file settings"""
+        return self.run_test(
+            "Get File Settings",
+            "GET",
+            "settings/files",
+            200
+        )
+        
+    def test_notification_settings(self):
+        """Test getting notification settings"""
+        return self.run_test(
+            "Get Notification Settings",
+            "GET",
+            "settings/notifications",
+            200
+        )
+        
+    def test_system_settings(self):
+        """Test getting system settings"""
+        return self.run_test(
+            "Get System Settings",
+            "GET",
+            "settings/system",
             200
         )
 
@@ -169,6 +242,24 @@ class RDPStealthAPITester:
             "files/list",
             200,
             params={"path": path}
+        )
+        
+    def test_file_operations(self):
+        """Test getting file operations"""
+        return self.run_test(
+            "Get File Operations",
+            "GET",
+            "files/operations",
+            200
+        )
+        
+    def test_storage_stats(self):
+        """Test getting storage stats"""
+        return self.run_test(
+            "Get Storage Stats",
+            "GET",
+            "files/storage-stats",
+            200
         )
 
     def print_summary(self):
@@ -197,16 +288,36 @@ def main():
     
     # Test authenticated endpoints
     tester.test_get_current_user()
+    
+    # Dashboard endpoints
     tester.test_dashboard_stats()
     tester.test_current_metrics()
-    tester.test_rdp_connections()
-    tester.test_active_sessions()
-    tester.test_logs()
-    tester.test_settings()
-    tester.test_file_list()
     
-    # Test creating an RDP connection
+    # RDP endpoints
+    tester.test_rdp_connections()
     tester.test_create_rdp_connection("example.com", "rdp_user", "rdp_password")
+    
+    # Session endpoints
+    tester.test_active_sessions()
+    
+    # Logs endpoints - specifically mentioned in the test request
+    tester.test_logs()
+    tester.test_log_levels()
+    tester.test_log_sources()
+    tester.test_log_statistics()
+    
+    # Settings endpoints - specifically mentioned in the test request
+    tester.test_settings()
+    tester.test_security_settings()
+    tester.test_rdp_settings()
+    tester.test_file_settings()
+    tester.test_notification_settings()
+    tester.test_system_settings()
+    
+    # File management endpoints
+    tester.test_file_list()
+    tester.test_file_operations()
+    tester.test_storage_stats()
     
     # Print summary
     success = tester.print_summary()
