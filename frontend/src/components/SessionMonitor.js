@@ -17,7 +17,7 @@ import {
   Trash2
 } from 'lucide-react';
 import { mockActiveSessions, mockConnectionHistory } from '../utils/mockData';
-import { toast } from 'sonner';
+import { toast } from '../components/ui/sonner';
 
 const SessionMonitor = () => {
   const [activeSessions, setActiveSessions] = useState(mockActiveSessions);
